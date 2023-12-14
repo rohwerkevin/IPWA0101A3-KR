@@ -61,7 +61,6 @@ function DonationForm({ setConfirmationData }) {
     "Funktionskleidung (z.B. Outdoor- oder Sportbekleidung)",
     "Hüte und Caps",
     "Wäsche und Nachtwäsche",
-    "Gebrauchte Schuluniformen",
   ];
 
   const crisisAreas = [
