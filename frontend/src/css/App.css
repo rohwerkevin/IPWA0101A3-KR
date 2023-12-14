@@ -223,27 +223,15 @@ textarea {
   font-size: 16px;
 }
 
-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  align-items: center;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
 @media screen and (max-width: 768px) {
   .App-nav {
+    background-color: #ffffff;
     display: flex;
-    flex-direction: column; /* Änderung: Elemente untereinander anordnen */
-    width: 100%;
+    flex-direction: column;
+    color: rgb(0, 0, 0);
+    width: 100vw;
     align-items: center;
-    justify-content: center;
+    overflow: hidden;
   }
 
   .home-container {
@@ -254,21 +242,48 @@ button:hover {
   .App-nav li {
     display: flex;
     align-items: center;
-    width: 100%; /* Änderung: Volle Breite für jedes Element */
+    font-size: small;
+    width: 50px; /* Änderung: Volle Breite für jedes Element */
     justify-content: center;
-    padding: 0.5rem;
-    margin: 0;
     text-align: center;
   }
 
   .App-nav ul {
-    width: 70%;
+    width: 2vw;
+    display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0;
   }
 
-  .logo {
+  .App-nav li button {
+    background-color: #bf0404;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    width: 100vw;
+    margin-right: 10px;
+  }
+
+  .app-logo {
     display: none;
+  }
+  .App-footer {
+    background-color: #bf0404;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    width: 100vw;
+    padding: 1rem;
+    align-items: center;
+    margin: auto;
+    overflow: hidden;
+  }
+  .footer-column {
+    justify-content: auto;
+  }
+  .App-nav li:hover,
+  .App-nav li.active {
+    background-color: #ffffff;
+    color: #000000;
   }
 }

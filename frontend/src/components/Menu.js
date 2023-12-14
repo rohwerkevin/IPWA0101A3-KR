@@ -11,7 +11,7 @@ function Menu({ handleMenuClick }) {
           </button>
         </li>
         <li onClick={() => handleMenuClick("home")}>Startseite</li>
-        <li onClick={() => handleMenuClick("home")}>
+        <li className="app-logo" onClick={() => handleMenuClick("home")}>
           <img alt="Logo" className="logo" src="favicon12.ico" />
         </li>{" "}
         <li onClick={() => handleMenuClick("about")}>Über uns</li>
