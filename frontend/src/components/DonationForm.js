@@ -170,7 +170,9 @@ function DonationForm({ setConfirmationData }) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Danke für Deine Spende vom: ${Datum}</title>
-        <link rel="stylesheet" type="text/css" href="../css/DonationForm.css"> 
+        <link rel="stylesheet" type="text/css" href="../css/DonationForm.css">
+        <link rel="icon" href="%PUBLIC_URL%/favicon12.ico" />
+ 
         <style>
           body {
             display: flex;
