@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spendenübersicht</title>
+  <link rel="stylesheet" href="css/Index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-9JqFz4Mz1Zl6bJvY9a6ZPTvv+tegGe4U5wd3ZlR9ZMigZ5MWL0/2W8AuIYtQOp6OWt9a71p0uJ/">
+
+
+</head>
+<body>
+  <div class="container">
+    <h1>Spendenübersicht</h1>
+    <button id="reload-button">
+      <i>Aktualisieren</i> 
+    </button>
+    <div id="table-container"></div>
+  </div>
+
+  <script>
+    let tableData = [];
+
+    fetch('/api/data')
+      .then(response => response.json())
+      .then(data => {
+        tableData = data;
+        const tableContainer = document.getElementById('table-container');
+        const table = createTable(tableData);
+        tableContainer.appendChild(table);
+      })
+      .catch(error => {
+        console.error('Fehler beim Abrufen der Daten:', error);
+      });
+
+    function createTable(data) {
+      const tableContainer = document.createElement('div');
+      
+      if (data.length === 0) {
+        const noDataMessage = document.createElement('p');
+        noDataMessage.textContent = 'Es wurden noch keine Spenden registriert.';
+        tableContainer.appendChild(noDataMessage);
+      } else {
+        const table = document.createElement('table');
+        const tableHeader = document.createElement('tr');
+        const headers = Object.keys(data[0]);
+
+        headers.forEach(header => {
+          const th = document.createElement('th');
+          th.textContent = header;
+          th.addEventListener('click', () => sortTable(header));
+          tableHeader.appendChild(th);
+        });
+
+        table.appendChild(tableHeader);
+
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          headers.forEach(header => {
+            const td = document.createElement('td');
+            td.textContent = item[header];
+            row.appendChild(td);
+          });
+          table.appendChild(row);
+        });
+
+        tableContainer.appendChild(table);
+      }
+
+      return tableContainer;
+    }
+
+    function sortTable(header) {
+      const tableHeader = document.getElementById('table-header');
+      const isAscending = tableHeader.dataset.sort === 'asc';
+      tableHeader.dataset.sort = isAscending ? 'desc' : 'asc';
+
+      tableData.sort((a, b) => {
+        const valueA = a[header];
+        const valueB = b[header];
+        if (isAscending) {
+          return valueA.localeCompare(valueB);
+        } else {
+          return valueB.localeCompare(valueA);
+        }
+      });
+
+      const tableContainer = document.getElementById('table-container');
+      tableContainer.innerHTML = '';
+      const table = createTable(tableData);
+      tableContainer.appendChild(table);
+    }
+
+    const reloadButton = document.getElementById('reload-button');
+
+    reloadButton.addEventListener('click', () => {
+      fetch('/api/data')
+        .then(response => response.json())
+        .then(data => {
+          tableData = data;
+          const tableContainer = document.getElementById('table-container');
+          tableContainer.innerHTML = ''; 
+          const table = createTable(tableData);
+          tableContainer.appendChild(table);
+        })
+        .catch(error => {
+          console.error('Fehler beim Abrufen der Daten:', error);
+        });
+    });
+  </script>
+</body>
+</html>
